@@ -20,7 +20,7 @@ function setHiddenFields(){
     }
     attempt = 0;
     return answer;
-
+}
 
 function setMessage(message){
     document.getElementById('message').innerHTML = message;
