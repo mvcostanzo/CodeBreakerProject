@@ -4,11 +4,12 @@ let attempt = document.getElementById('attempt');
 function guess() {
     let input = document.getElementById('user-guess');
     //add functionality to guess function here
-    if !(validateInput(input)){
+    if (!validateInput(input)){
         return false;
     }
     else{
         attempt+=1;
+        getResults(input);
     }
 }
 
@@ -37,5 +38,6 @@ function validateInput(guess){
 }
 
 function getResults(input){
-    
+    let resultHTML = "<div class='row'><span class='col-md-6'>" + input + "</span><div class='col-md-6'>";
+    document.getElementById('results').innerHTML = resultHTML;
 }
