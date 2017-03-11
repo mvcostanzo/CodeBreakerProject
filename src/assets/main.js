@@ -15,11 +15,12 @@ function guess() {
 
 //implement new functions here
 function setHiddenFields(){
-    answer = Math.floor(Math.random()).toString();
+    answer = Math.floor((Math.random()*10000) + 1).toString();
     while (answer.length < 4){
         answer = "0" + answer;
     }
     attempt = 0;
+    console.log(answer);
     return answer;
 }
 
