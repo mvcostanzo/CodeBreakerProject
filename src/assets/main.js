@@ -4,24 +4,36 @@ let attempt = document.getElementById('attempt');
 function guess() {
     let input = document.getElementById('user-guess');
     //add functionality to guess function here
-    if (!validateInput(input)){
+    if (answer.value == '' && attempt.value == ''){
+        setHiddenFields();
+    }
+    console.log('Answer:' + answer.value + ' Attempt: ' + attempt.value);
+    if (!validateInput(input.value)){
         return false;
     }
     else{
-        attempt+=1;
-        getResults(input);
+        attempt.value= parseInt(attempt.value) + 1;
+        if(getResults(input) == true){
+            setMessage('You Win! :)');
+        }
+        else{
+            if (attempt.value >= 10){
+                setMessage('You Lose! :()');
+            }
+            else{
+                setMessage('Incorrect, try again');
+            }
+        }
     }
 }
 
 //implement new functions here
 function setHiddenFields(){
-    answer = Math.floor((Math.random()*10000) + 1).toString();
-    while (answer.length < 4){
-        answer = "0" + answer;
+    answer.value = Math.floor((Math.random()*10000) + 1).toString();
+    while (answer.value.length < 4){
+        answer.value = "0" + answer.value;
     }
-    attempt = 0;
-    console.log(answer);
-    return answer;
+    attempt.value = 0;
 }
 
 function setMessage(message){
@@ -29,6 +41,7 @@ function setMessage(message){
 }
 
 function validateInput(guess){
+    console.log('Guess:' + guess);
     if (guess.length == 4){
         return true;
     }
@@ -39,6 +52,26 @@ function validateInput(guess){
 }
 
 function getResults(input){
-    let resultHTML = "<div class='row'><span class='col-md-6'>" + input + "</span><div class='col-md-6'>";
-    document.getElementById('results').innerHTML = resultHTML;
+    let resultHTML = "<div class='row'><span class='col-md-6'>" + input.value + "</span><div class='col-md-6'>";
+    let correctCount = 0;
+    for (i=0; i < input.value.length; i++){
+       if(answer.value.indexOf(input.value[i]) == i){
+           resultHTML+= '<span class="glyphicon glyphicon-ok"></span>';
+           correctCount+=1;
+       }
+        else if(answer.value.indexOf(input.value[i]) != -1){
+            console.log(input.value[i] + ' - ' + answer.value.indexOf(input.value[i]))
+            resultHTML+='<span class="glyphicon glyphicon-transfer"></span>';
+        }
+        else{
+            resultHTML+='<span class="glyphicon glyphicon-remove"></span>'
+        }
+    }
+    document.getElementById('results').innerHTML += resultHTML + '</div>'
+    if (correctCount == 4){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
