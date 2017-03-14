@@ -63,7 +63,7 @@ function getResults(input){
             resultHTML+= '<span class="glyphicon glyphicon-ok"></span>';
             correctCount+=1;
         }
-        else if (answer.value.indexOf(input.value[i]) !== -1){
+        else if (answer.value.indexOf(input.value[i]) > -1){
             resultHTML+='<span class="glyphicon glyphicon-transfer"></span>';
         }
         else{
