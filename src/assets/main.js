@@ -56,12 +56,10 @@ function validateInput(guess){
 
 function getResults(input){
     let resultHTML = "<div class='row'><span class='col-md-6'>" + input.value + "</span><div class='col-md-6'>";
-    let correctCount = 0;
-    for (i=0; i < 4; i++){
+    for (i=0; i < input.value.length; i++){
         if (input.value[i] === answer.value[i]){
             //Perfect Match - Character and Position
             resultHTML+= '<span class="glyphicon glyphicon-ok"></span>';
-            correctCount+=1;
         }
         else if (answer.value.indexOf(input.value[i]) > -1){
             resultHTML+='<span class="glyphicon glyphicon-transfer"></span>';
@@ -72,12 +70,10 @@ function getResults(input){
     }
     
     document.getElementById('results').innerHTML += resultHTML + '</div>'
-    if (correctCount == 4){
+    if (input.value === answer.value){
         return true;
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 function showAnswer(wonGame){
