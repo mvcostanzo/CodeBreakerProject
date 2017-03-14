@@ -69,7 +69,7 @@ function getResults(input){
         }
     }
     
-    document.getElementById('results').innerHTML += resultHTML + '</div>'
+    document.getElementById('results').innerHTML += resultHTML + '</div></div>'
     if (input.value === answer.value){
         return true;
     }
