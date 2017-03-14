@@ -57,7 +57,7 @@ function validateInput(guess){
 function getResults(input){
     let resultHTML = "<div class='row'><span class='col-md-6'>" + input.value + "</span><div class='col-md-6'>";
     let correctCount = 0;
-    for (i=0; i < input.value.length; i++){
+    for (i=0; i < 4; i++){
         if (input.value[i] == answer.value[i]){
             //Perfect Match - Character and Position
             resultHTML+= '<span class="glyphicon glyphicon-ok"></span>';
