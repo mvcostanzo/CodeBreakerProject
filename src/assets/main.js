@@ -32,7 +32,8 @@ function getResults(inputEntry) {
     "use strict";
     let resultHTML = "<div class='row'><span class='col-md-6'>" + inputEntry.value + "</span><div class='col-md-6'>";
     let i;
-    for (i = 0; i < inputEntry.value.length; i += 1) {
+    let inputEntryStringArray = inputEntry.value;
+    for (i = 0; i < inputEntryStringArray.length; i += 1) {
         if (inputEntry.value[i] === answer.value[i]) {
             //Perfect Match - Character and Position
             resultHTML += '<span class="glyphicon glyphicon-ok"></span>';
