@@ -1,95 +1,98 @@
+/*jslint es6, browser, devel*/
 let answer = document.getElementById('answer');
 let attempt = document.getElementById('attempt');
 
-function guess() {
-    let input = document.getElementById('user-guess');
-    //add functionality to guess function here
-    if (answer.value == '' && attempt.value == ''){
-        setHiddenFields();
-    }
-    console.log('Answer:' + answer.value + ' Attempt: ' + attempt.value);
-    if (!validateInput(input.value)){
-        return false;
-    }
-    else{
-        attempt.value= parseInt(attempt.value) + 1;
-        let result = getResults(input);
-        if(result == true){
-            setMessage('You Win! :)');
-            showAnswer(true);
-            showReplay();
-        }
-        else if (result == false && attempt.value >= 10){
-            setMessage('You Lose! :(');
-            showAnswer(false);
-            showReplay();
-        }
-        else{
-            setMessage('Incorrect, try again.');
-        }
-    }
-}
-
 //implement new functions here
-function setHiddenFields(){
-    answer.value = Math.floor((Math.random()*10000) + 1).toString();
-    while (answer.value.length < 4){
+function setHiddenFields() {
+    "use strict";
+    answer.value = Math.floor((Math.random() * 10000) + 1).toString();
+    while (answer.value.length < 4) {
         answer.value = "0" + answer.value;
     }
     attempt.value = 0;
 }
 
-function setMessage(message){
+function setMessage(message) {
+    "use strict";
     document.getElementById('message').innerHTML = message;
 }
 
-function validateInput(guess){
+function validateInput(guess) {
+    "use strict";
     console.log('Guess:' + guess);
-    if (guess.length == 4){
+    if (guess.length === 4) {
         return true;
-    }
-    else{
+    } else {
         setMessage('Guesses must be exactly 4 characters long.');
         return false;
     }
 }
 
-function getResults(input){
+function getResults(input) {
+    "use strict";
     let resultHTML = "<div class='row'><span class='col-md-6'>" + input.value + "</span><div class='col-md-6'>";
-    for (i=0; i < input.value.length; i++){
-        if (input.value[i] == answer.value[i]){
+    let i;
+    for (i = 0; i < input.value.length; i += 1) {
+        if (input.value[i] === answer.value[i]) {
             //Perfect Match - Character and Position
-            resultHTML+= '<span class="glyphicon glyphicon-ok"></span>';
-        }
-        else if (answer.value.indexOf(input.value[i]) > -1){
-            resultHTML+='<span class="glyphicon glyphicon-transfer"></span>';
-        }
-        else{
-            resultHTML+='<span class="glyphicon glyphicon-remove"></span>'
+            resultHTML += '<span class="glyphicon glyphicon-ok"></span>';
+        } else if (answer.value.indexOf(input.value[i]) > -1) {
+            resultHTML += '<span class="glyphicon glyphicon-transfer"></span>';
+        } else {
+            resultHTML += '<span class="glyphicon glyphicon-remove"></span>';
         }
     }
-    
-    document.getElementById('results').innerHTML += resultHTML + '</div></div>'
-    if (input.value == answer.value){
+    document.getElementById('results').innerHTML += resultHTML + '</div></div>';
+    if (input.value === answer.value) {
         return true;
     }
     return false;
 }
 
-function showAnswer(wonGame){
+function showAnswer(wonGame) {
+    "use strict";
     let codeElement = document.getElementById('code');
     codeElement.innerHTML = answer.value;
-    if (wonGame == true){
+    if (wonGame === true) {
         codeElement.className += ' success';
-    }
-    else{
+    } else {
         codeElement.className += ' failure';
     }
 }
 
-function showReplay(){
+function showReplay() {
+    "use strict";
     let guessDiv = document.getElementById('guessing-div');
     guessDiv.style.display = 'none';
     let replayDiv = document.getElementById('replay-div');
     replayDiv.style.display = 'block';
+}
+
+function guess() {
+    "use strict";
+    let input = document.getElementById('user-guess');
+    //add functionality to guess function here
+    if (answer.value === '' && attempt.value === '') {
+        setHiddenFields();
+    }
+    console.log('Answer:' + answer.value + ' Attempt: ' + attempt.value);
+    let inputValid = validateInput(input.value);
+    if (inputValid === false) {
+        return false;
+    }
+    if (inputValid === true) {
+        attempt.value = parseInt(attempt.value) + 1;
+        let result = getResults(input);
+        if (result === true) {
+            setMessage('You Win! :)');
+            showAnswer(true);
+            showReplay();
+        } else if (result === false && attempt.value >= 10) {
+            setMessage('You Lose! :(');
+            showAnswer(false);
+            showReplay();
+        } else {
+            setMessage('Incorrect, try again.');
+        }
+    }
 }
