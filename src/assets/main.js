@@ -30,21 +30,20 @@ function validateInput(guess) {
 
 function getResults(inputEntry) {
     "use strict";
-    let resultHTML = "<div class='row'><span class='col-md-6'>" + inputEntry.value + "</span><div class='col-md-6'>";
+    let resultHTML = "<div class='row'><span class='col-md-6'>" + inputEntry + "</span><div class='col-md-6'>";
     let i;
-    let inputEntryStringArray = inputEntry.value;
-    for (i = 0; i < inputEntryStringArray.length; i += 1) {
-        if (inputEntry.value[i] === answer.value[i]) {
+    for (i = 0; i < inputEntry.length; i += 1) {
+        if (inputEntry[i] === answer.value[i]) {
             //Perfect Match - Character and Position
             resultHTML += '<span class="glyphicon glyphicon-ok"></span>';
-        } else if (answer.value.indexOf(inputEntry.value[i]) > -1) {
+        } else if (answer.value.indexOf(inputEntry[i]) > -1) {
             resultHTML += '<span class="glyphicon glyphicon-transfer"></span>';
         } else {
             resultHTML += '<span class="glyphicon glyphicon-remove"></span>';
         }
     }
     document.getElementById('results').innerHTML += resultHTML + '</div></div>';
-    if (inputEntry.value === answer.value) {
+    if (inputEntry === answer.value) {
         return true;
     }
     return false;
@@ -83,7 +82,7 @@ function guess() {
     }
     if (inputValid === true) {
         attempt.value = parseInt(attempt.value) + 1;
-        let result = getResults(input);
+        let result = getResults(input.value);
         if (result === true) {
             setMessage('You Win! :)');
             showAnswer(true);
