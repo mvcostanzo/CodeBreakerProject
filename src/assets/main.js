@@ -28,22 +28,22 @@ function validateInput(guess) {
     }
 }
 
-function getResults(input) {
+function getResults(inputEntry) {
     "use strict";
-    let resultHTML = "<div class='row'><span class='col-md-6'>" + input.value + "</span><div class='col-md-6'>";
+    let resultHTML = "<div class='row'><span class='col-md-6'>" + inputEntry.value + "</span><div class='col-md-6'>";
     let i;
-    for (i = 0; i < input.value.length; i += 1) {
-        if (input.value[i] === answer.value[i]) {
+    for (i = 0; i < inputEntry.value.length; i += 1) {
+        if (inputEntry.value[i] === answer.value[i]) {
             //Perfect Match - Character and Position
             resultHTML += '<span class="glyphicon glyphicon-ok"></span>';
-        } else if (answer.value.indexOf(input.value[i]) > -1) {
+        } else if (answer.value.indexOf(inputEntry.value[i]) > -1) {
             resultHTML += '<span class="glyphicon glyphicon-transfer"></span>';
         } else {
             resultHTML += '<span class="glyphicon glyphicon-remove"></span>';
         }
     }
     document.getElementById('results').innerHTML += resultHTML + '</div></div>';
-    if (input.value === answer.value) {
+    if (inputEntry.value === answer.value) {
         return true;
     }
     return false;
